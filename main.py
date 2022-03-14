@@ -1,3 +1,5 @@
+from art import logo
+
 def formula(li):
     result = 0
     
@@ -21,31 +23,25 @@ def get_sum(entry):
     
     if type(entry) == str:
         li = [float(i) if i not in "+-*/" else i for i in entry.split(" ")]
-        # print("A1: ", li) # ok
     
     sum = li[0]
     result = [sum, "", 0]
-    # print("A2: ", result) # ok
     
     while len(li) != 1:
         for i in range(1, 3, 2):
             result[i] = li[i]
             result[i + 1] = li[i + 1]
-            # print("B1: ", result) # ok
             
             sum = formula(result)
             result = [sum, "", 0]
             li.remove(li[i])
-            li.remove(li[i]) 
-        # print("C1: ", li) #ok
-        # print("C2: ", result) #ok
+            li.remove(li[i])
         
     return sum
 
 
 def calculate(entry):
     li = [float(i) if i not in "+-*/" else i for i in entry.split(" ")]
-    # print("A: ", li) # ok
 
     if "+" not in li and "-" not in li:
         return get_sum(li)
@@ -58,7 +54,6 @@ def calculate(entry):
         copy.append("+")
     
     positions = [i for i, val in enumerate(copy) if val == "+" or val == "-"]
-    # print("positions of "": ",positions) # ok
 
     for i in range(len(positions) - 1):
         start = positions[i] + 1
@@ -66,7 +61,6 @@ def calculate(entry):
         slice = copy[start:end]
         
         multiply_divide = get_sum(slice)
-        # print("total of slice: ", multiply_divide) # ok
 
         for i in range(start, end):
             copy[i] = ""
@@ -76,12 +70,24 @@ def calculate(entry):
         copy.pop()
 
     final_li = [i for i in copy if i != ""]
-    # print("final list to get sum: ", final_li) # ok
 
     return get_sum(final_li)
     
 
-to_calculate = input("Enter your calculation: ").strip()
+def calculator():
+    print(logo)
+    
+    on = True
+    while on:
+        try:
+            to_calculate = input("Enter your calculation: ").strip()
+            print("\n" + "-" * 40 + "\n")
+            print(f"Result: {to_calculate} = {calculate(to_calculate)}")
+            print(f"eval() method: {eval(to_calculate)}")
+            on = False
+        except ValueError:
+            print("Enter numbers and +-*/ separated by space")
+            print("\n" + "-" * 40 + "\n")
+        
 
-print(f"Result: {to_calculate} = {calculate(to_calculate)}")
-print(f"eval() method: {eval(to_calculate)}")
+calculator()
