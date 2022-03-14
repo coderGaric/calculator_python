@@ -83,7 +83,7 @@ def calculator():
             to_calculate = input("Enter your calculation: ").strip()
             print("\n" + "-" * 40 + "\n")
             print(f"Result: {to_calculate} = {calculate(to_calculate)}")
-            print(f"eval() method: {eval(to_calculate)}")
+            # print(f"eval() method: {eval(to_calculate)}")
             on = False
         except ValueError:
             print("Enter numbers and +-*/ separated by space")
